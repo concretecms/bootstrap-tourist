@@ -176,7 +176,7 @@
 				this._options.backdropContainer = "body";
 			}
 
-			if(this._options.framework !== "bootstrap3" && this._options.framework !== "bootstrap4")
+			if(this._options.framework !== "bootstrap3" && this._options.framework !== "bootstrap4" && this._options.framework !== "bootstrap5")
 			{
 				this._debug('Invalid framework specified: ' + this._options.framework);
 				throw "Bootstrap Tourist: Invalid framework specified";
@@ -188,7 +188,8 @@
 			// SEARCH PLACEHOLDER: TEMPLATES LOCATION
 			objTemplates = {
 							  bootstrap3	: '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-default" data-role="prev">&laquo; ' + this._options.localization.buttonTexts.prevButton + '</button> <button class="btn btn-sm btn-default" data-role="next">' + this._options.localization.buttonTexts.nextButton + ' &raquo;</button> <button class="btn btn-sm btn-default" data-role="pause-resume" data-pause-text="' + this._options.localization.buttonTexts.pauseButton + '" data-resume-text="' + this._options.localization.buttonTexts.resumeButton + '">' + this._options.localization.buttonTexts.pauseButton + '</button> </div> <button class="btn btn-sm btn-default" data-role="end">' + this._options.localization.buttonTexts.endTourButton + '</button> </div> </div>',
-							  bootstrap4	: '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-header"></h3> <div class="popover-body"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-outline-secondary" data-role="prev">&laquo; ' + this._options.localization.buttonTexts.prevButton + '</button> <button class="btn btn-sm btn-outline-secondary" data-role="next">' + this._options.localization.buttonTexts.nextButton + ' &raquo;</button> <button class="btn btn-sm btn-outline-secondary" data-role="pause-resume" data-pause-text="' + this._options.localization.buttonTexts.pauseButton + '" data-resume-text="' + this._options.localization.buttonTexts.resumeButton + '">' + this._options.localization.buttonTexts.pauseButton + '</button> </div> <button class="btn btn-sm btn-outline-secondary" data-role="end">' + this._options.localization.buttonTexts.endTourButton + '</button> </div> </div>',
+					  	  	  bootstrap4	: '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-header"></h3> <div class="popover-body"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-outline-secondary" data-role="prev">&laquo; ' + this._options.localization.buttonTexts.prevButton + '</button> <button class="btn btn-sm btn-outline-secondary" data-role="next">' + this._options.localization.buttonTexts.nextButton + ' &raquo;</button> <button class="btn btn-sm btn-outline-secondary" data-role="pause-resume" data-pause-text="' + this._options.localization.buttonTexts.pauseButton + '" data-resume-text="' + this._options.localization.buttonTexts.resumeButton + '">' + this._options.localization.buttonTexts.pauseButton + '</button> </div> <button class="btn btn-sm btn-outline-secondary" data-role="end">' + this._options.localization.buttonTexts.endTourButton + '</button> </div> </div>',
+					  	  	  bootstrap5	: '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-header"></h3> <div class="popover-body"></div> <div class="popover-navigation"> <div class="btn-group"> <button class="btn btn-sm btn-outline-secondary" data-role="prev">&laquo; ' + this._options.localization.buttonTexts.prevButton + '</button> <button class="btn btn-sm btn-outline-secondary" data-role="next">' + this._options.localization.buttonTexts.nextButton + ' &raquo;</button> <button class="btn btn-sm btn-outline-secondary" data-role="pause-resume" data-pause-text="' + this._options.localization.buttonTexts.pauseButton + '" data-resume-text="' + this._options.localization.buttonTexts.resumeButton + '">' + this._options.localization.buttonTexts.pauseButton + '</button> </div> <button class="btn btn-sm btn-outline-secondary" data-role="end">' + this._options.localization.buttonTexts.endTourButton + '</button> </div> </div>'
 						  };
 
 			// template option is default null. If not null after extend, caller has set a custom template, so don't touch it
@@ -234,14 +235,14 @@
 				// this, making it seem like my fix was working when in fact it was utterly broken.
 				var defaultWhiteList = [];
 
-				if(this._options.framework == "bootstrap4" && $.fn.popover.Constructor.Default.whiteList !== undefined)
+				if((this._options.framework == "bootstrap4") && $.fn.popover.Constructor.Default.whiteList !== undefined)
 				{
 					defaultWhiteList = $.fn.popover.Constructor.Default.whiteList;
 				}
 
-				if(this._options.framework == "bootstrap3" && $.fn.popover.Constructor.DEFAULTS.whiteList !== undefined)
+				if((this._options.framework == "bootstrap4") && $.fn.popover.Constructor.Default.whiteList !== undefined)
 				{
-					defaultWhiteList = $.fn.popover.Constructor.DEFAULTS.whiteList;
+					defaultWhiteList = bootstrap.Popover.Default.allowList;
 				}
 
 				var whiteListAdditions = {
@@ -505,6 +506,7 @@
 					$(".tour-step-element-reflexOnly").removeClass("tour-step-element-reflexOnly");
                     _this._hideBackdrop();
 					_this._destroyOverlayElements();
+					$(".tour-tour").remove();
 
 					if (_this._options.onEnd != null)
 					{
@@ -620,10 +622,11 @@
 						$element.popover('destroy');
 					}
 
-					if(_this._options.framework == "bootstrap4")
+					if(_this._options.framework == "bootstrap4" || _this._options.framework == "bootstrap5")
 					{
 						$element.popover('dispose');
 					}
+
 
 					$element.removeClass("tour-" + _this._options.name + "-element tour-" + _this._options.name + "-" + _this.getCurrentStepIndex() + "-element").removeData('bs.popover');
 
@@ -676,7 +679,6 @@
 			skipToPrevious,
 			step,
 			$element;
-
 
 			if(this.ended())
 			{
@@ -1327,10 +1329,10 @@
 					    {
 							title += '<span class="pull-right">' + (i + 1) + '/' + this.getStepCount() + '</span>';
 					    }
-					    if(this._options.framework == "bootstrap4")
-					    {
+						if(this._options.framework == "bootstrap4" || this._options.framework == "bootstrap5")
+						{
 							title += '<span class="float-right">' + (i + 1) + '/' + this.getStepCount() + '</span>';
-					    }
+						}
 					}
 				}
 
@@ -1351,7 +1353,7 @@
 									//boundary: "viewport", // added for BS4 popper testing. Do not enable, creates visible jump on orphan step scroll to bottom
 								};
 
-				if(this._options.framework == "bootstrap4")
+				if(this._options.framework == "bootstrap4" || this._options.framework == "bootstrap5")
 				{
 					if(isOrphan)
 					{
@@ -1421,6 +1423,13 @@
 				if(this._options.framework == "bootstrap4")
 				{
 					$tip = $( ($element.data('bs.popover') ? $element.data('bs.popover').getTipElement() : $element.data('popover').getTipElement() ) );
+				}
+
+				if(this._options.framework == "bootstrap5")
+				{
+					var tip = bootstrap.Popover.getInstance($element.get(0));
+					var $tip = $(tip.tip || $(tip.config.template)[0]);
+					$tip.addClass("in");
 				}
 
 				$tip.attr('id', step.id);
@@ -1624,12 +1633,29 @@
 						e.preventDefault();
 						return _this.next();
 					};
+				})(this)).on("click.tour-" + this._options.name, ".popover.tour-" + this._options.name + " .btn-group :nth-child(2)", (function (_this) {
+					return function (e) {
+						e.preventDefault();
+						return _this.next();
+					};
+				})(this)).on("click.tour-" + this._options.name, ".popover.tour-" + this._options.name + " .btn-group :nth-child(1)", (function (_this) {
+					return function (e) {
+						e.preventDefault();
+						if (_this._current > 0) {
+							return _this.prev();
+						}
+					};
 				})(this)).on("click.tour-" + this._options.name, ".popover.tour-" + this._options.name + " *[data-role='prev']", (function (_this) {
 					return function (e) {
 						e.preventDefault();
 						if (_this._current > 0) {
 							return _this.prev();
 						}
+					};
+				})(this)).on("click.tour-" + this._options.name, ".popover.tour-" + this._options.name + " .fa-times", (function (_this) {
+					return function (e) {
+						e.preventDefault();
+						return _this.end();
 					};
 				})(this)).on("click.tour-" + this._options.name, ".popover.tour-" + this._options.name + " *[data-role='end']", (function (_this) {
 					return function (e) {

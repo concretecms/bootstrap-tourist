@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-tourist",
-  "version": "0.3.2",
+  "version": "0.3.5",
   "description": "Quick and easy way to build your product tours with Bootstrap Popovers for Bootstrap 3 and 4",
   "main": "bootstrap-tourist.js",
   "scripts": {
@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist.git"
+    "url": "git+https://github.com/bitterdev/bootstrap-tourist.git"
   },
   "keywords": [
     "bootstrap",
     "tour",
     "js"
   ],
-  "author": "IGreatlyDislikeJavascript",
+  "author": "IGreatlyDislikeJavascript, bitterdev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist/issues"
+    "url": "https://github.com/bitterdev/bootstrap-tourist/issues"
   },
-  "homepage": "https://github.com/IGreatlyDislikeJavascript/bootstrap-tourist#readme",
+  "homepage": "https://github.com/bitterdev/bootstrap-tourist#readme",
   "devDependencies": {
     "standard-version": "^7.0.0"
   },

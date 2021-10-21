@@ -1,13 +1,13 @@
 # Bootstrap Tourist [![NPM Version](http://img.shields.io/npm/v/bootstrap-tourist.svg?style=flat)](https://www.npmjs.org/)
 
-Quick and easy way to build your product tours with Bootstrap Popovers for Bootstrap 3 and 4.
+Quick and easy way to build your product tours with Bootstrap Popovers for Bootstrap 3, 4 and 5.
 
 ## About Bootstrap Tourist
 Bootstrap Tourist (called "Tourist" from here) is a fork of Bootstrap Tour, a plugin to create product tours.
 
 The original Bootstrap Tour was written in coffeescript, and had a number of open feature and bug fix requests in the github repo. Bootstrap Tourist is an in-progress effort to move Bootstrap Tour to native ES6, fix some issues and add some requested features. You can read more about why Bootstrap Tourist exists, and why it's not a github fork anymore, here: https://github.com/sorich87/bootstrap-tour/issues/713
 
-Tourist works with Bootstrap 3.4 and 4.3 (specify "framework" option), however the "standalone" non-Bootstrap version is not available
+Tourist works with Bootstrap 3.4, 4.3 and 5 (specify "framework" option), however the "standalone" non-Bootstrap version is not available
 
 ## Minimum Bootstrap / jQuery requirements
 There are some bugs in earlier BS3 and BS4, and jquery versions, that cause problems with Tourist. Please use minimum Bootstrap 3.4.x or 4.3.x, jquery 3.3.1 to avoid. Earlier versions may work, but try for yourself.
