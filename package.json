@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bitterdev/bootstrap-tourist.git"
+    "url": "git+https://github.com/concrete5/bootstrap-tourist.git"
   },
   "keywords": [
     "bootstrap",
@@ -19,9 +19,9 @@
   "author": "IGreatlyDislikeJavascript, bitterdev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bitterdev/bootstrap-tourist/issues"
+    "url": "https://github.com/concrete5/bootstrap-tourist/issues"
   },
-  "homepage": "https://github.com/bitterdev/bootstrap-tourist#readme",
+  "homepage": "https://github.com/concrete5/bootstrap-tourist#readme",
   "devDependencies": {
     "standard-version": "^7.0.0"
   },
