@@ -101,7 +101,7 @@
 										name: 'tour',
 										steps: [],
 										container: 'body',
-										autoscroll: true,
+										autoscroll: false,
 										keyboard: true,
 										storage: storage,
 										debug: false,
@@ -496,6 +496,10 @@
 
 			endHelper = (function (_this) {
 				return function (e) {
+
+
+					this._debug("endHelper run");
+
 					$(document).off("click.tour-" + _this._options.name);
 					$(document).off("keyup.tour-" + _this._options.name);
 					$(window).off("resize.tour-" + _this._options.name);
@@ -611,9 +615,12 @@
 				{
 					var $element;
 
+					this._debug('hideStepHelper run')
+
 					$element = $(step.element);
-					if (!($element.data('bs.popover') || $element.data('popover')))
-					{
+					var bootstrapPopover = bootstrap.Popover.getInstance($element.get(0));
+
+					if (!bootstrapPopover) {
 						$element = $('body');
 					}
 
@@ -624,9 +631,9 @@
 
 					if(_this._options.framework == "bootstrap4" || _this._options.framework == "bootstrap5")
 					{
+						this._debug('element dispose')
 						$element.popover('dispose');
 					}
-
 
 					$element.removeClass("tour-" + _this._options.name + "-element tour-" + _this._options.name + "-" + _this.getCurrentStepIndex() + "-element").removeData('bs.popover');
 
@@ -656,6 +663,8 @@
 			})(this);
 
 			hideDelay = step.delay.hide || step.delay;
+			this._debug('hideDay: ' + hideDelay)
+
 			if ({}
 				.toString.call(hideDelay) === '[object Number]' && hideDelay > 0) {
 				this._debug("Wait " + hideDelay + " milliseconds to hide the step " + (this._current + 1));
@@ -1222,6 +1231,7 @@
 
 			isOrphan = this._isOrphan(step);
 
+			this._debug('_showPopover Run')
 
 			// is this step already visible? _showPopover is called by _showPopoverAndOverlay, which is called by window scroll event. This
 			// check prevents the continual flickering of the current tour step - original approach reloaded the popover every scroll event.
@@ -1230,6 +1240,7 @@
 			{
 				// Step not visible, draw first time
 
+				this._debug('_showPopover .tour-' + this._options.name + '.remove(): num items' + $(".tour-" + this._options.name).length)
 				$(".tour-" + this._options.name).remove();
 
 				step.template = this._template(step, i);
@@ -1289,6 +1300,7 @@
 							// Get the DOM code for the object
 							var strNext = $objNext[0].outerHTML;
 
+							this._debug('objNext.hide()')
 							$objNext.hide();
 
 							// Get the DOM code for the hidden object
@@ -1378,7 +1390,9 @@
 					else
 					{
 						// BS3 popover accepts jq object or string literal. BS4 popper.js of course doesn't, just to make life extra irritating.
-						popOpts.selector = "#" + step.element[0].id;
+						if (typeof step.element !== 'string') {
+							popOpts.selector = "#" + step.element[0].id;
+						}
 
 						// Allow manual repositioning of the popover
 						// THIS DOESN'T WORK - popper.js will only adjust on one axis even if both axis are specified...
